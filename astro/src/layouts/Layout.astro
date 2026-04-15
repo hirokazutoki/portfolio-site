@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 const homeUrl = new URL("/", Astro.site).toString();
-const previewImageUrl = new URL("/preview.jpg", Astro.site).toString();
+const previewImageUrl = new URL("/preview.jpg?t=20260415", Astro.site).toString();
 ---
 
 <!doctype html>
@@ -13,6 +13,7 @@ const previewImageUrl = new URL("/preview.jpg", Astro.site).toString();
 		<meta name="generator" content={Astro.generator} />
 		<!-- Open Graph -->
 		<meta property="og:type" content="website" />
+		<meta property="og:title" content="hirokazutoki · about" />
 		<meta property="og:description" content="hirokazutoki · about" />
 		<meta property="og:url" content={homeUrl} />
 		<meta property="og:image" content={previewImageUrl} />
@@ -20,6 +21,7 @@ const previewImageUrl = new URL("/preview.jpg", Astro.site).toString();
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:site" content="@hirokazutoki">
 		<meta name="twitter:image" content={previewImageUrl} />
+		<meta name="twitter:title" content="hirokazutoki · about" />
 		<!-- Social Media Verification -->
 		<link rel="me" href="https://github.com/hirokazutoki" />
 		<link rel="me" href="https://x.com/hirokazutoki" />
