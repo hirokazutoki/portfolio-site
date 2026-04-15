@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
-import preview from '../assets/preview.jpg';
+const homeUrl = new URL("/", Astro.site).toString();
+const previewImageUrl = new URL("/preview.jpg", Astro.site).toString();
 ---
 
 <!doctype html>
@@ -13,10 +14,10 @@ import preview from '../assets/preview.jpg';
 		<!-- Open Graph -->
 		<meta property="og:type" content="website" />
 		<meta property="og:description" content="hirokazutoki · about" />
-		<meta property="og:url" content={new URL('/', Astro.site).toString()} />
-		<meta property="og:image" content={preview.src} />
+		<meta property="og:url" content={homeUrl} />
+		<meta property="og:image" content={previewImageUrl} />
 		<meta property="og:image:type" content="image/jpeg" />
-		<meta name="twitter:image" content={preview.src} />
+		<meta name="twitter:image" content={previewImageUrl} />
 		<!-- Primary Meta Tags -->
 		<title>hirokazutoki · about</title>
 	</head>
