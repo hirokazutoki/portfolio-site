@@ -17,7 +17,12 @@ const previewImageUrl = new URL("/preview.jpg", Astro.site).toString();
 		<meta property="og:url" content={homeUrl} />
 		<meta property="og:image" content={previewImageUrl} />
 		<meta property="og:image:type" content="image/jpeg" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@hirokazutoki">
 		<meta name="twitter:image" content={previewImageUrl} />
+		<!-- Social Media Verification -->
+		<link rel="me" href="https://github.com/hirokazutoki" />
+		<link rel="me" href="https://x.com/hirokazutoki" />
 		<!-- Primary Meta Tags -->
 		<title>hirokazutoki · about</title>
 	</head>
