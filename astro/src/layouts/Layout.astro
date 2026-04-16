@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 const homeUrl = new URL("/", Astro.site).toString();
+const appleTouchIconUrl = new URL("/apple-touch-icon.png", Astro.site).toString();
 const previewImageUrl = new URL("/preview.jpg?t=2026041523", Astro.site).toString();
 ---
 
@@ -10,6 +11,7 @@ const previewImageUrl = new URL("/preview.jpg?t=2026041523", Astro.site).toStrin
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href={appleTouchIconUrl}>
 		<meta name="generator" content={Astro.generator} />
 		<!-- Open Graph -->
 		<meta property="og:type" content="website" />
