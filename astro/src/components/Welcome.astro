@@ -1,4 +1,6 @@
 ---
+
+import logo from '../assets/logo-360px.png';
 import profile from '../assets/profile.jpg';
 ---
 
@@ -7,7 +9,10 @@ import profile from '../assets/profile.jpg';
 		<div class="max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
 
 			<div class="flex items-center justify-between h-14">
-				<a href="/" class="text-white font-semibold text-md sm:text-base no-underline hover:text-amber-400">hirokazutoki</a>
+				<div class="flex items-center gap-0.5">
+					<img src={logo.src} alt="logo image" class="w-10 h-10" />
+					<a href="/" class="text-white font-semibold text-md sm:text-base no-underline hover:text-amber-400">hirokazutoki</a>
+				</div>
 				<nav>
 					<ul>
 						<li><a href="/" class="px-3 py-1.5 uppercase no-underline tracking-wide text-md bg-white">Profile</a></li>
