@@ -6,7 +6,7 @@ const previewImageUrl = new URL("/preview.jpg?t=2026041523", Astro.site).toStrin
 ---
 
 <!doctype html>
-<html lang="en" class="m-0 w-full h-full">
+<html lang="en" class="m-0 w-full h-full overscroll-y-none">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -32,7 +32,7 @@ const previewImageUrl = new URL("/preview.jpg?t=2026041523", Astro.site).toStrin
 		<!-- Primary Meta Tags -->
 		<title>hirokazutoki · about</title>
 	</head>
-	<body class="m-0 w-full h-full bg-zinc-950">
+	<body class="m-0 w-full h-full bg-zinc-950 overscroll-y-none">
 		<slot />
 	</body>
 </html>
