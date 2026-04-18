@@ -35,15 +35,15 @@ jobs:
           node-version: 24.14.1
 
       - name: Install Dependencies
-        run: |
-          cd astro
-          yarn install
+        working-directory: astro
+        run: yarn install
 
       - name: Build
+        working-directory: astro
         run: yarn run build
 
       - name: Deploy
-        run: aws s3 sync --region ap-northeast-1 ./dist s3://$BUCKET_NAME --delete
+        run: aws s3 sync --region ap-northeast-1 ./astro/dist s3://$BUCKET_NAME --delete
 
   clear-cloudfront-cache:
     runs-on: ubuntu-latest
