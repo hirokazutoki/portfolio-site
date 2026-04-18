@@ -1,0 +1,61 @@
+name: Build and Deploy to S3 and clear CloudFront cache
+
+on:
+  # Trigger on push to the main branch.
+  push:
+    branches:
+      - 'main'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    # To use variables in the "main" environment.
+    environment: main
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set environment variables
+        run: |
+          echo "ASSUME_ROLE=${{ secrets.AWS_ROLE_ARN }}" >> $GITHUB_ENV
+          echo "BUCKET_NAME=${{ secrets.BUCKET_NAME }}" >> $GITHUB_ENV
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ap-northeast-1
+          role-to-assume: ${{ env.ASSUME_ROLE }}
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn run build
+
+      - name: Deploy
+        run: aws s3 sync --region ap-northeast-1 ./dist s3://$BUCKET_NAME --delete
+
+  clear-cloudfront-cache:
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+    environment: main
+
+    steps:
+      - name: Set environment variables
+        run: |
+          echo "ASSUME_ROLE=${{ secrets.AWS_ROLE_ARN }}" >> $GITHUB_ENV
+          echo "DISTRIBUTION_ID=${{ secrets.DISTRIBUTION_ID }}" >> $GITHUB_ENV
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ap-northeast-1
+          role-to-assume: ${{ env.ASSUME_ROLE }}
+
+      - name: Clear CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"
