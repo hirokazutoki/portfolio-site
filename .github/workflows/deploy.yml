@@ -29,6 +29,11 @@ jobs:
           aws-region: ap-northeast-1
           role-to-assume: ${{ env.ASSUME_ROLE }}
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.14.1
+
       - name: Install Dependencies
         run: |
           cd astro
