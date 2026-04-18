@@ -25,6 +25,11 @@ jobs:
           echo "ASSUME_ROLE=${{ secrets.AWS_ROLE_ARN }}" >> $GITHUB_ENV
           echo "BUCKET_NAME=${{ secrets.BUCKET_NAME }}" >> $GITHUB_ENV
 
+      - name: Debug Variables
+        run: |
+          echo "ASSUME_ROLE=${{ env.ASSUME_ROLE }}"
+          echo "BUCKET_NAME=${{ env.BUCKET_NAME }}"
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
