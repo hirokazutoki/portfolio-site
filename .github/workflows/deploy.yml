@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
 
     steps:
       - name: Checkout code
@@ -46,7 +46,7 @@ jobs:
         run: aws s3 sync --region ap-northeast-1 ./astro/dist s3://$BUCKET_NAME --delete
 
   clear-cloudfront-cache:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     needs: build-and-deploy
 
     steps:
