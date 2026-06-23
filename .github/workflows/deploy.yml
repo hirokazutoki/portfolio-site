@@ -34,9 +34,12 @@ jobs:
         with:
           node-version: 24.14.1
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Install Dependencies
         working-directory: astro
-        run: yarn install
+        run: yarn install --immutable
 
       - name: Build
         working-directory: astro
