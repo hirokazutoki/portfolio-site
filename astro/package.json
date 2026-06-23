@@ -17,5 +17,6 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.2",
     "tailwindcss": "^4.3.0"
-  }
+  },
+  "packageManager": "yarn@4.17.0"
 }
