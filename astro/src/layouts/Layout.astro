@@ -3,10 +3,12 @@ import "../styles/global.css";
 const homeUrl = new URL("/", Astro.site).toString();
 const appleTouchIconUrl = new URL("/apple-touch-icon.png", Astro.site).toString();
 const previewImageUrl = new URL("/preview.jpg?t=2026041523", Astro.site).toString();
+
+const lang = Astro.currentLocale ?? 'en';
 ---
 
 <!doctype html>
-<html lang="en" class="m-0 w-full h-full">
+<html lang={lang} class="m-0 w-full h-full">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />

@@ -1,7 +1,15 @@
 ---
-
 import logo from '../assets/logo-360px.png';
 import profile from '../assets/profile.jpg';
+import { t } from '../i18n/translations';
+const lang = Astro.currentLocale ?? 'ja';
+const tr = t(lang);
+const otherLang = lang === 'en' ? 'ja' : 'en';
+
+import { getRelativeLocaleUrl } from 'astro:i18n';
+const homeUrl = getRelativeLocaleUrl(lang, '/');
+const switchUrl = getRelativeLocaleUrl(otherLang, '/');
+const switchLang = lang === 'en' ? '日本語' : 'English';
 ---
 
 <div class="bg-zinc-950 min-h-dvh flex flex-col">
@@ -11,10 +19,14 @@ import profile from '../assets/profile.jpg';
 			<div class="flex items-center justify-between h-14">
 				<div class="flex items-center gap-0.5">
 					<img src={logo.src} alt="logo image" class="w-10 h-10" />
-					<a href="/" class="text-white font-semibold text-md sm:text-base no-underline hover:text-accent-color">hirokazutoki</a>
+					<a href={homeUrl} class="text-white font-semibold text-md sm:text-base no-underline hover:text-accent-color">hirokazutoki</a>
 				</div>
-				<nav class="hidden sm:flex">
-					<ul>
+				<nav class="flex">
+					<div class="text-white hover:text-accent-color">
+						<a href={switchUrl}>{switchLang}</a>
+					</div>
+					<!-- TODO -->
+					<ul class="hidden">
 						<li><a href="/" class="px-3 py-1.5 uppercase no-underline tracking-wide text-md bg-white">Profile</a></li>
 					</ul>
 				</nav>
@@ -28,9 +40,8 @@ import profile from '../assets/profile.jpg';
 					<img src={profile.src} alt="profile" class="w-full rounded" />
 				</div>
 				<div>
-					<h1 class="text-5xl md:text-6xl text-white tracking-tight text-balanc">Hirokazu Toki</h1>
-					<p class="text-lg text-zinc-400 mt-3">Web Application Developer</p>
-					<p class="text-lg text-zinc-400 mt-3">I love Laravel</p>
+					<h1 class="text-5xl md:text-6xl text-white tracking-tight text-balanc">{tr.name}</h1>
+					<p class="text-lg text-zinc-400 mt-3">{tr.role}</p>
 				</div>
 			</div>
 		</div>
