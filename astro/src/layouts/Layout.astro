@@ -3,10 +3,43 @@ import "../styles/global.css";
 const appleTouchIconUrl = new URL("/apple-touch-icon.png", Astro.site).toString();
 const previewImageUrl = new URL("/preview.jpg?t=2026041523", Astro.site).toString();
 
+import { t } from '../i18n/translations';
 const lang = Astro.currentLocale ?? "ja";
+const tr = t(lang);
 const ogLocale = lang === "ja" ? "ja_JP" : "en_US";
 const ogLocaleAlt = lang === "ja" ? "en_US" : "ja_JP";
 const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
+
+const personId = new URL('/#person', Astro.site).toString();
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "WebPage",
+			"@id": currentUrl,
+			"url": currentUrl,
+			"name": "hirokazutoki · about",
+			"inLanguage": lang,
+			"author": { "@id": personId }
+		},
+		{
+			"@type": "Person",
+			"@id": personId,
+			"name": tr.name,
+			"givenName": tr.givenName,
+			"familyName": tr.familyName,
+			"alternateName": tr.alternateName,
+			"url": new URL('/', Astro.site).toString(),
+			"jobTitle": tr.role,
+			"sameAs": [
+				"https://github.com/hirokazutoki",
+				"https://x.com/hirokazutoki",
+				"https://www.linkedin.com/in/hirokazutoki",
+			]
+		}
+	]
+};
 ---
 
 <!doctype html>
@@ -38,6 +71,9 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
 		<!-- Social Media Verification -->
 		<link rel="me" href="https://github.com/hirokazutoki" />
 		<link rel="me" href="https://x.com/hirokazutoki" />
+		<link rel="me" href="https://www.linkedin.com/in/hirokazutoki" />
+		<!-- Structured Data -->
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 		<!-- Primary Meta Tags -->
 		<title>hirokazutoki · about</title>
 	</head>
