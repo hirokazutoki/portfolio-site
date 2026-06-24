@@ -1,10 +1,12 @@
 ---
 import "../styles/global.css";
-const homeUrl = new URL("/", Astro.site).toString();
 const appleTouchIconUrl = new URL("/apple-touch-icon.png", Astro.site).toString();
 const previewImageUrl = new URL("/preview.jpg?t=2026041523", Astro.site).toString();
 
-const lang = Astro.currentLocale ?? 'en';
+const lang = Astro.currentLocale ?? "ja";
+const ogLocale = lang === "ja" ? "ja_JP" : "en_US";
+const ogLocaleAlt = lang === "ja" ? "en_US" : "ja_JP";
+const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <!doctype html>
@@ -19,7 +21,12 @@ const lang = Astro.currentLocale ?? 'en';
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="hirokazutoki · about" />
 		<meta property="og:description" content="hirokazutoki · about" />
-		<meta property="og:url" content={homeUrl} />
+		<meta property="og:locale" content={ogLocale} />
+		<meta property="og:locale:alternate" content={ogLocaleAlt} />
+		<meta property="og:url" content={currentUrl} />
+		<link rel="alternate" hreflang="ja" href={new URL('/', Astro.site)} />
+		<link rel="alternate" hreflang="en" href={new URL('/en/', Astro.site)} />
+		<link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />
 		<meta property="og:image" content={previewImageUrl} />
 		<meta property="og:image:type" content="image/jpeg" />
 		<meta property="og:image:width" content="1200" />
