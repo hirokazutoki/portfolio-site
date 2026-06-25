@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 const appleTouchIconUrl = new URL("/apple-touch-icon.png", Astro.site).toString();
 const previewImageUrl = new URL("/preview.jpg?t=2026041523", Astro.site).toString();
 
@@ -74,6 +75,8 @@ const jsonLd = {
 		<link rel="me" href="https://www.linkedin.com/in/hirokazutoki" />
 		<!-- Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+		<ClientRouter />
 		<!-- Primary Meta Tags -->
 		<title>hirokazutoki · about</title>
 	</head>
