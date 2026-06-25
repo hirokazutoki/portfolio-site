@@ -46,6 +46,16 @@ const jsonLd = {
 <!doctype html>
 <html lang={lang} class="m-0 w-full h-full">
 	<head>
+		<script is:inline>
+			function applyTheme() {
+				const saved = localStorage.getItem("theme");
+				const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+				document.documentElement.setAttribute("data-theme", saved ?? (prefersDark ? "dark" : "light"));
+			}
+			applyTheme();
+			// View Transitions でページ遷移すると <html> の属性がリセットされるため再セット
+			document.addEventListener("astro:after-swap", applyTheme);
+		</script>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" href="/favicon.ico" />
@@ -80,7 +90,7 @@ const jsonLd = {
 		<!-- Primary Meta Tags -->
 		<title>hirokazutoki · about</title>
 	</head>
-	<body class="m-0 w-full h-full bg-zinc-950">
+	<body class="m-0 w-full h-full">
 		<slot />
 	</body>
 </html>
