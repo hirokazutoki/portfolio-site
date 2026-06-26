@@ -77,7 +77,6 @@ const switchLang = lang === 'en' ? '日本語' : 'English';
 		const next = current === "dark" ? "light" : "dark";
 		document.documentElement.setAttribute("data-theme", next);
 		localStorage.setItem("theme", next);
-		const meta = document.querySelector('meta[name="theme-color"]');
-		if (meta) meta.setAttribute("content", next === "dark" ? "#09090b" : "#f9f7f3");
+		(window as any).setThemeColor(next === "dark" ? "#09090b" : "#f9f7f3");
 	});
 </script>

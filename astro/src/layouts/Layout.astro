@@ -48,13 +48,20 @@ const jsonLd = {
 	<head>
 		<meta name="theme-color" content="#09090b" />
 		<script is:inline>
+			function setThemeColor(color) {
+				const existing = document.querySelector('meta[name="theme-color"]');
+				if (existing) existing.remove();
+				const meta = document.createElement("meta");
+				meta.name = "theme-color";
+				meta.content = color;
+				document.head.prepend(meta);
+			}
 			function applyTheme() {
 				const saved = localStorage.getItem("theme");
 				const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 				const theme = saved ?? (prefersDark ? "dark" : "light");
 				document.documentElement.setAttribute("data-theme", theme);
-				const meta = document.querySelector('meta[name="theme-color"]');
-				if (meta) meta.setAttribute("content", theme === "dark" ? "#09090b" : "#f9f7f3");
+				setThemeColor(theme === "dark" ? "#09090b" : "#f9f7f3");
 			}
 			applyTheme();
 			// View Transitions でページ遷移すると <html> の属性がリセットされるため再セット
