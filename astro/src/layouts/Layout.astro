@@ -46,6 +46,7 @@ const jsonLd = {
 <!doctype html>
 <html lang={lang} class="m-0 w-full h-full">
 	<head>
+		<meta name="theme-color" content="#09090b" />
 		<script is:inline>
 			function applyTheme() {
 				const saved = localStorage.getItem("theme");
@@ -61,7 +62,6 @@ const jsonLd = {
 		</script>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="theme-color" content="#09090b" />
 		<link rel="icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href={appleTouchIconUrl}>
 		<meta name="generator" content={Astro.generator} />
