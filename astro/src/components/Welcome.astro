@@ -10,6 +10,7 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 const homeUrl = getRelativeLocaleUrl(lang, '/');
 const switchUrl = getRelativeLocaleUrl(otherLang, '/');
 const switchLang = lang === 'en' ? '日本語' : 'English';
+import { version } from '../../package.json';
 ---
 
 <div class="min-h-dvh flex flex-col">
@@ -65,6 +66,7 @@ const switchLang = lang === 'en' ? '日本語' : 'English';
 	<footer class="border-t border-[var(--border)]">
 		<div class="flex justify-center items-center h-14">
 			<div class="text-[var(--text-footer)] text-base sm:text-sm">Copyright 2026, Hirokazu Toki.</div>
+			<div class="text-[var(--text-footer)] text-base sm:text-sm ml-3">v{version}</div>
 		</div>
 	</footer>
 </div>
