@@ -98,4 +98,5 @@ jobs:
       - name: Post preview URL to job summary
         run: |
           echo "## Preview" >> $GITHUB_STEP_SUMMARY
-          echo "[${{ github.ref_name }}](https://${{ vars.PREVIEW_CLOUDFRONT_DOMAIN }}/${{ github.ref_name }}/)" >> $GITHUB_STEP_SUMMARY
+          URL=https://${{ vars.PREVIEW_CLOUDFRONT_DOMAIN }}/${{ github.ref_name }}/
+          echo "<a href=\"$URL\" target=\"_blank\">$URL</a>" >> $GITHUB_STEP_SUMMARY
