@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 const appleTouchIconUrl = new URL("/apple-touch-icon.png", Astro.site).toString();
 const previewImageUrl = new URL("/preview.jpg?t=2026041523", Astro.site).toString();
 
@@ -94,7 +96,21 @@ const jsonLd = {
 		<!-- Primary Meta Tags -->
 		<title>hirokazutoki · about</title>
 	</head>
-	<body class="m-0 w-full h-full">
+	<body class="m-0 w-full h-full min-h-dvh flex flex-col">
+		<Header />
 		<slot />
+		<Footer />
 	</body>
 </html>
+
+<script>
+	document.addEventListener("click", (e) => {
+		if (!(e.target as Element).closest("#themeToggle")) return;
+		const current = document.documentElement.getAttribute("data-theme");
+		const next = current === "dark" ? "light" : "dark";
+		document.documentElement.setAttribute("data-theme", next);
+		localStorage.setItem("theme", next);
+		const meta = document.querySelector('meta[name="theme-color"]');
+		if (meta) meta.setAttribute("content", next === "dark" ? "#09090b" : "#f9f7f3");
+	});
+</script>
