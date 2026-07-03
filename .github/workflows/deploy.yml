@@ -45,6 +45,23 @@ jobs:
         working-directory: astro
         run: yarn run build
 
+      - name: Ensure rewrite-uri-to-index-html CloudFront Function exists
+        run: |
+          if ! aws cloudfront describe-function --name rewrite-uri-to-index-html &>/dev/null; then
+            ETAG=$(aws cloudfront create-function \
+              --name rewrite-uri-to-index-html \
+              --function-config Comment="Rewrite URI to index.html",Runtime="cloudfront-js-1.0" \
+              --function-code fileb://cloudfront-functions/rewrite-uri-to-index-html.js \
+              --query ETag --output text)
+            aws cloudfront publish-function \
+              --name rewrite-uri-to-index-html \
+              --if-match "$ETAG"
+            echo "Created and published rewrite-uri-to-index-html"
+            echo "::warning::Function created but not associated. Go to AWS Console > CloudFront > Behaviors > Viewer request and add 'rewrite-uri-to-index-html'."
+          else
+            echo "rewrite-uri-to-index-html already exists, skipping"
+          fi
+
       - name: Deploy
         run: aws s3 sync --region ap-northeast-1 ./astro/dist s3://$BUCKET_NAME --delete
 
