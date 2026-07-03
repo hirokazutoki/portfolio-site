@@ -5,6 +5,7 @@ export const translations = {
     givenName: 'Hirokazu',
     familyName: 'Toki',
     alternateName: ['時 大和', 'とき ひろかず'],
+    backToHome: 'Back to Home',
   },
   ja: {
     name: '時 大和',
@@ -12,6 +13,7 @@ export const translations = {
     familyName: '時',
     role: 'Webアプリケーションエンジニア',
     alternateName: ['とき ひろかず', 'Hirokazu Toki'],
+    backToHome: 'ホーム画面に戻る',
   },
 } as const;
 

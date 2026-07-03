@@ -1,7 +1,30 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { t } from '../i18n/translations';
+
+const lang = Astro.currentLocale ?? 'ja';
+const tr = t(lang);
 ---
 
 <Layout>
-    <p class="text-white p-2">404 - Not Found</p>
+    <div class="flex-1 flex items-center justify-center">
+        <div class="text-center">
+            <h1 class="text-(--text-muted) text-5xl p-2">404</h1>
+            <p class="text-(--text-muted) text-5xl p-2">Not Found</p>
+            <a class="inline-block mt-8 px-6 py-2.5 rounded-xl bg-(--bg-inverse) text-(--text-inverse) text-sm font-medium no-underline hover:opacity-70 transition-opacity" href="/">
+                {tr.backToHome}
+            </a>
+        </div>
+    </div>
 </Layout>
+
+<script>
+	function updateLangSwitch() {
+		const path = window.location.pathname;
+		const isEn = path.startsWith('/en/') || path === '/en';
+		const switchPath = isEn ? path.replace(/^\/en/, '') || '/' : '/en' + path;
+		document.getElementById('langSwitch')?.setAttribute('href', switchPath);
+	}
+  // NOTE: View Transitions でページ遷移してもスクリプトを必ず発火させるため
+	document.addEventListener('astro:page-load', updateLangSwitch);
+</script>
