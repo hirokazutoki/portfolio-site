@@ -7,7 +7,9 @@
 :root {
     color-scheme: light dark;
     --bg:          light-dark(#f9f7f3, #09090b);
+    --bg-inverse:  light-dark(#09090b, #f9f7f3);
     --text:        light-dark(#18181b, #fafafa);
+    --text-inverse: light-dark(#fafafa, #18181b);
     --text-muted:  light-dark(#52525b, #a1a1aa);
     --text-footer: light-dark(#a1a1aa, #52525b);
     --header-bg:   light-dark(rgba(249,247,243,0.8), rgba(9,9,11,0.8));
@@ -17,7 +19,9 @@
 :root[data-theme="light"] {
     color-scheme: light;
     --bg:          #f9f7f3;
+    --bg-inverse:  #09090b;
     --text:        #18181b;
+    --text-inverse: #fafafa;
     --text-muted:  #52525b;
     --text-footer: #a1a1aa;
     --header-bg:   rgba(249,247,243,0.8);
@@ -27,7 +31,9 @@
 :root[data-theme="dark"] {
     color-scheme: dark;
     --bg:          #09090b;
+    --bg-inverse:  #f9f7f3;
     --text:        #fafafa;
+    --text-inverse: #18181b;
     --text-muted:  #a1a1aa;
     --text-footer: #52525b;
     --header-bg:   rgba(9,9,11,0.8);

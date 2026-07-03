@@ -3,9 +3,11 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-    <div class="flex-1">
-        <div class="max-w-5xl mx-auto px-6 sm:px-6 md:px-8 py-16 sm:py-20 md:py-32">
-            <p class="text-(--text-muted) p-2">404 - Not Found</p>
+    <div class="flex-1 flex items-center justify-center">
+        <div class="text-center">
+            <h1 class="text-(--text-muted) text-5xl p-2">404</h1>
+            <p class="text-(--text-muted) text-5xl p-2">Not Found</p>
+            <a class="inline-block mt-8 px-6 py-2.5 rounded-xl bg-(--bg-inverse) text-(--text-inverse) text-sm font-medium no-underline hover:opacity-70 transition-opacity" href="/">Back to Home</a>
         </div>
     </div>
 </Layout>
