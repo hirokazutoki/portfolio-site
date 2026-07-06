@@ -11,7 +11,7 @@ const tr = t(lang);
         <div class="text-center">
             <h1 class="text-(--text-muted) text-5xl p-2">404</h1>
             <p class="text-(--text-muted) text-5xl p-2">Not Found</p>
-            <a class="inline-block mt-8 px-6 py-2.5 rounded-xl bg-(--bg-inverse) text-(--text-inverse) text-sm font-medium no-underline hover:opacity-70 transition-opacity" href="/">
+            <a id="backToHome" class="inline-block mt-8 px-6 py-2.5 rounded-xl bg-(--bg-inverse) text-(--text-inverse) text-sm font-medium no-underline hover:opacity-70 transition-opacity" href="/">
                 {tr.backToHome}
             </a>
         </div>
@@ -19,12 +19,24 @@ const tr = t(lang);
 </Layout>
 
 <script>
-	function updateLangSwitch() {
+	import { translations } from '../i18n/translations';
+
+	// NOTE: View Transitions でページ遷移してもスクリプトを必ず発火させるため astro:page-load を使用
+	document.addEventListener('astro:page-load', () => {
 		const path = window.location.pathname;
 		const isEn = path.startsWith('/en/') || path === '/en';
-		const switchPath = isEn ? path.replace(/^\/en/, '') || '/' : '/en' + path;
-		document.getElementById('langSwitch')?.setAttribute('href', switchPath);
-	}
-  // NOTE: View Transitions でページ遷移してもスクリプトを必ず発火させるため
-	document.addEventListener('astro:page-load', updateLangSwitch);
+		const tr = translations[isEn ? 'en' : 'ja'];
+
+		const langSwitch = document.getElementById('langSwitch');
+		if (langSwitch) {
+			langSwitch.setAttribute('href', isEn ? path.replace(/^\/en/, '') || '/' : '/en' + path);
+			langSwitch.textContent = isEn ? '日本語' : 'English';
+		}
+
+		const backToHome = document.getElementById('backToHome');
+		if (backToHome) {
+			backToHome.setAttribute('href', isEn ? '/en/' : '/');
+			backToHome.textContent = tr.backToHome;
+		}
+	});
 </script>
