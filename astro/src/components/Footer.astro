@@ -3,8 +3,20 @@ import { version } from '../../package.json';
 ---
 
 <footer class="border-t border-(--bg)">
-	<div class="flex justify-center items-center h-14">
-		<div class="text-(--text-footer) text-base sm:text-sm">Copyright 2026, Hirokazu Toki.</div>
-		<div class="text-(--text-footer) text-base sm:text-sm ml-3">v{version}</div>
+	<div class="max-w-5xl mx-auto px-7 md:px-8">
+		<div class="flex items-center justify-between h-14">
+			<div class="text-(--text-footer) text-base sm:text-sm">© Hirokazu Toki</div>
+			<div class="text-(--text-footer) text-base sm:text-sm ml-3">
+				<div>
+					<a class="flex items-center gap-1 hover:text-(--text) text-sm font-medium no-underline hover:opacity-70 transition-opacity"
+						 href="https://github.com/hirokazutoki/portfolio-site/releases"
+						 target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+					>
+						<i class="fa-solid fa-code-branch"></i>
+						<span>v{version}</span>
+					</a>
+				</div>
+			</div>
+		</div>
 	</div>
 </footer>

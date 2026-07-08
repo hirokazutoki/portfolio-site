@@ -536,6 +536,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-free@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "@fortawesome/fontawesome-free@npm:7.3.0"
+  checksum: 10c0/f7f401e4736fcff1ace455f83d16b3c5fe97f3daaa8ca48710649dbae7b6aeaee5f2fda6a66e4675475e68b1241541638c5ca0ad65ca148a69df8bd5cdb229c3
+  languageName: node
+  linkType: hard
+
 "@img/colour@npm:^1.0.0":
   version: 1.1.0
   resolution: "@img/colour@npm:1.1.0"
@@ -1435,6 +1442,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "astro@workspace:."
   dependencies:
+    "@fortawesome/fontawesome-free": "npm:^7.3.0"
     "@tailwindcss/vite": "npm:^4.3.1"
     "@types/node": "npm:^26.0.1"
     astro: "npm:^7.0.0"
