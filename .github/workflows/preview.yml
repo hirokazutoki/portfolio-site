@@ -2,8 +2,8 @@ name: Preview Deploy
 
 on:
   push:
-    branches-ignore:
-      - main
+    branches:
+      - preview/*
 
 permissions:
   id-token: write
