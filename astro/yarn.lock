@@ -545,6 +545,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource-variable/noto-sans-jp@npm:^5.2.10":
+  version: 5.2.10
+  resolution: "@fontsource-variable/noto-sans-jp@npm:5.2.10"
+  checksum: 10c0/c93a5518d314ea7255be2bc4b3331af9ba8f2700af6f7f84ab35625f4f24f5718b57c4005dc4f5d43156a6fc751bee95d5f4512ddde336c994ecf8ac4ab45abd
+  languageName: node
+  linkType: hard
+
 "@fortawesome/fontawesome-free@npm:^7.3.0":
   version: 7.3.0
   resolution: "@fortawesome/fontawesome-free@npm:7.3.0"
@@ -1707,6 +1714,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "astro@workspace:."
   dependencies:
+    "@fontsource-variable/noto-sans-jp": "npm:^5.2.10"
     "@fortawesome/fontawesome-free": "npm:^7.3.0"
     "@tailwindcss/vite": "npm:^4.3.1"
     "@types/node": "npm:^26.0.1"
