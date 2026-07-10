@@ -13,7 +13,13 @@ const tr = t(lang);
 				<img src={profile.src} alt="profile" class="w-full rounded" />
 			</div>
 			<div>
-				<h1 class="text-5xl md:text-6xl tracking-tight text-balanc">{tr.name}</h1>
+				<h1 class="text-5xl md:text-6xl tracking-tight text-balanc">
+					{
+						lang === 'ja'
+							? <><span class="pr-6">{tr.familyName}</span><span>{tr.givenName}</span></>
+							: tr.name
+					}
+				</h1>
 				<p class="text-lg text-(--text-muted) mt-3">{tr.role}</p>
 				<nav class="mt-8 flex items-center gap-5 text-(--text-muted)">
 					<a href="https://github.com/hirokazutoki/" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="hover:text-(--text)">
