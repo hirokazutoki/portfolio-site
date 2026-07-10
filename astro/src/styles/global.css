@@ -47,6 +47,10 @@ html, body {
     color: var(--text);
 }
 
+body {
+    font-family: "Noto Sans JP Variable", "メイリオ", sans-serif;
+}
+
 /* Theme toggle icons */
 .icon-sun  { display: block; }
 .icon-moon { display: none; }
