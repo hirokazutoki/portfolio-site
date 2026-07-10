@@ -1,5 +1,5 @@
 ---
-import { version } from '../../package.json';
+import { version, repository } from '../../package.json';
 ---
 
 <footer>
@@ -8,7 +8,7 @@ import { version } from '../../package.json';
 			<div>© Hirokazu Toki</div>
 			<div>
 				<a class="flex items-center gap-1 text-sm"
-					 href="https://github.com/hirokazutoki/portfolio-site/releases"
+					 href={`${repository.url}/releases`}
 					 target="_blank" rel="noopener noreferrer" aria-label="GitHub"
 				>
 					<i class="fa-solid fa-code-branch"></i>
