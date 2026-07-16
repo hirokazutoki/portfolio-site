@@ -4,6 +4,7 @@ export const translations = {
     romajiName: '',
     givenName: 'Hirokazu',
     familyName: 'Toki',
+    role: 'Web Application Developer',
     description: [
       'Web Application Developer',
       'From Osaka, living in Hyogo',
@@ -17,6 +18,7 @@ export const translations = {
     romajiName: 'Toki Hirokazu',
     givenName: '大和',
     familyName: '時',
+    role: 'Webアプリケーションエンジニア',
     description: [
       'Webアプリケーションエンジニア',
       '大阪府出身、兵庫県在住',
