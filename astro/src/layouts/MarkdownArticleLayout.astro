@@ -1,43 +1,151 @@
 ---
 import BaseLayout from './Layout.astro';
-const { frontmatter } = Astro.props;
+import { formatDate } from '../utils/date';
+
+import '../styles/tag.css';
+import '../styles/articles.css';
+
+import { t } from '../i18n/translations';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+const lang = Astro.currentLocale ?? 'ja';
+const tr = t(lang);
+const articlesUrl = getRelativeLocaleUrl(lang, '/articles');
+const { frontmatter, headings = [] } = Astro.props;
+const tableOfContents = headings.filter((heading: any) => heading.depth === 2);
+
+const publishedDate = formatDate(new Date(frontmatter.pubDate));
 ---
 <BaseLayout>
-    <main class="flex-1">
-        <div class="max-w-5xl mx-auto px-6 sm:px-6 md:px-8 py-16 sm:py-20 md:py-32">
-            <p><em>{frontmatter.description}</em></p>
-            <p>著者: {frontmatter.author}</p>
-            <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
+    <main class="flex-1 article-content">
+        <div class="max-w-5xl mx-auto px-6 sm:px-6 md:px-8 py-0 min-[993px]:py-32">
+            <nav class="flex items-center justify-between sticky md:static top-0 z-40 py-3 bg-(--bg)">
+                <a href={articlesUrl} class="hidden min-[993px]:inline-flex items-center">
+                    <i class="fa-solid fa-angles-left me-2"></i>{tr.backToArticles}</a>
+                <aside class="relative block min-[993px]:hidden me-2 ml-auto">
+                    <button type="button" id="tocToggle" aria-expanded="false" aria-controls="tocDropdown" class="flex items-center">
+                        <i id="tocToggleIcon" class="fa-solid fa-angle-down me-1 transition-transform"></i>{tr.contents}
+                    </button>
+                    <div id="tocDropdown" class="hidden absolute right-0 top-full mt-2 w-64 max-h-[70vh] overflow-y-auto rounded-xl border border-(--border) bg-(--bg) p-4 shadow-lg">
+                        <ol class="toc-list">
+                            {tableOfContents.map((heading: any) => (
+                              <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+                            ))}
+                        </ol>
+                    </div>
+                </aside>
+            </nav>
+            <h1>{frontmatter.title}</h1>
+            <div class="article-layout mt-8">
+                <div class="article-main">
+                <div class="flex flex-row items-center justify-between">
+                    <p>{publishedDate}</p>
+                    <div class="tags">
+                        {frontmatter.tags.map((tag: string) => (
+                          <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
+                        ))}
+                    </div>
+                </div>
+                    <slot name="notice" />
+                    <img src={frontmatter.image.url} alt={frontmatter.image.alt} class="" />
 
-            <div class="tags">
-                {frontmatter.tags.map((tag: string) => (
-                  <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
-                ))}
+                    <div class="markdown-content mt-8">
+                        <slot />
+                    </div>
+                </div>
+
+                <aside id="contents">
+                    <div>{tr.contents}</div>
+                    <ol class="toc-list">
+                        {tableOfContents.map((heading: any) => (
+                          <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+                        ))}
+                    </ol>
+                </aside>
             </div>
-            <slot />
         </div>
     </main>
 </BaseLayout>
-<style>
-    a {
-        color: var(--text-muted);
-    }
 
-    .tags {
-        display: flex;
-        flex-wrap: wrap;
-    }
+<script>
+    document.addEventListener('astro:page-load', () => {
+        const tocToggle = document.getElementById('tocToggle');
+        const tocToggleIcon = document.getElementById('tocToggleIcon');
+        const tocDropdown = document.getElementById('tocDropdown');
 
-    .tag {
-        margin: 0.25em;
-        border: dotted 1px var(--text-muted);
-        border-radius: .5em;
-        padding: .25em .5em;
-        background-color: var(--bg-muted);
-    }
+        if (tocToggle && tocDropdown) {
+            const closeDropdown = () => {
+                tocDropdown.classList.add('hidden');
+                tocToggle.setAttribute('aria-expanded', 'false');
+                tocToggleIcon?.classList.remove('rotate-180');
+            };
+            const openDropdown = () => {
+                tocDropdown.classList.remove('hidden');
+                tocToggle.setAttribute('aria-expanded', 'true');
+                tocToggleIcon?.classList.add('rotate-180');
+            };
 
-    .tag::before {
-        content: "# ";
-        color: var(--text-muted);
-    }
-</style>
+            tocToggle.addEventListener('click', () => {
+                tocToggle.getAttribute('aria-expanded') === 'true' ? closeDropdown() : openDropdown();
+            });
+            tocDropdown.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeDropdown));
+            document.addEventListener('click', (e) => {
+                if (!tocDropdown.contains(e.target as Node) && !tocToggle.contains(e.target as Node)) {
+                    closeDropdown();
+                }
+            });
+        }
+
+        const mobileQuery = window.matchMedia('(max-width: 767px)');
+        const linkCardImages = document.querySelectorAll<HTMLImageElement>('.link-card-image');
+        const sizeLinkCardImages = () => {
+            linkCardImages.forEach((img) => {
+                const body = img.closest<HTMLElement>('.link-card')?.querySelector<HTMLElement>('.link-card-body');
+                if (!body) return;
+                if (mobileQuery.matches) {
+                    const size = `${body.offsetHeight}px`;
+                    img.style.width = size;
+                    img.style.height = size;
+                } else {
+                    img.style.width = '';
+                    img.style.height = '';
+                }
+            });
+        };
+        if (linkCardImages.length) {
+            sizeLinkCardImages();
+            window.addEventListener('resize', sizeLinkCardImages);
+        }
+
+        const headings = document.querySelectorAll<HTMLElement>('.markdown-content h2[id]');
+        const links = document.querySelectorAll<HTMLAnchorElement>('.toc-list a[href^="#"]');
+        if (!headings.length || !links.length) return;
+
+        const linksByHash = new Map<string, HTMLAnchorElement[]>();
+        links.forEach((link) => {
+            const href = link.getAttribute('href') ?? '';
+            const list = linksByHash.get(href) ?? [];
+            list.push(link);
+            linksByHash.set(href, list);
+        });
+
+        const setActive = (activeLinks: HTMLAnchorElement[]) => {
+            links.forEach((l) => l.classList.remove('active'));
+            activeLinks.forEach((l) => l.classList.add('active'));
+        };
+
+        setActive(linksByHash.get(links[0].getAttribute('href') ?? '') ?? []);
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    const activeLinks = linksByHash.get(`#${entry.target.id}`);
+                    if (!activeLinks || !entry.isIntersecting) return;
+                    setActive(activeLinks);
+                });
+            },
+            { rootMargin: '-80px 0px -70% 0px' }
+        );
+
+        headings.forEach((heading) => observer.observe(heading));
+    });
+</script>

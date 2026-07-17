@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/Layout.astro";
+import '../../styles/tag.css';
 
 const allArticles = Object.values(import.meta.glob('../articles/*.md', { eager: true }))
 const tags = [...new Set(allArticles.map((article: any) => article.frontmatter.tags).flat())];
@@ -7,34 +8,13 @@ const tags = [...new Set(allArticles.map((article: any) => article.frontmatter.t
 <BaseLayout>
   <main class="flex-1">
     <div class="max-w-5xl mx-auto px-6 sm:px-6 md:px-8 py-16 sm:py-20 md:py-32">
-      <div class="tags">
-        {tags.map((tag) => (
-          <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
-        ))}
-      </div>
+
+        <h1 class="text-4xl mb-5">Tags</h1>
+        <ul class="tags mt-8">
+          {tags.map((tag) => (
+            <li class="tag"><a href={`/tags/${tag}`}>{tag}</a></li>
+          ))}
+        </ul>
     </div>
   </main>
 </BaseLayout>
-<style>
-    a {
-        color: var(--text-muted);
-    }
-
-    .tags {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .tag {
-        margin: 0.25em;
-        border: dotted 1px var(--text-muted);
-        border-radius: .5em;
-        padding: .25em .5em;
-        background-color: var(--bg-muted);
-    }
-
-    .tag::before {
-        content: "# ";
-        color: var(--text-muted);
-    }
-</style>

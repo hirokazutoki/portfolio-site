@@ -12,6 +12,11 @@ export const translations = {
     ],
     alternateName: ['時 大和', 'とき ひろかず'],
     backToHome: 'Back to Home',
+    articlesPageTitle: 'Articles',
+    backToArticles: 'Back to Articles',
+    prev: 'Prev',
+    next: 'Next',
+    contents: 'Contents',
   },
   ja: {
     name: '時 大和',
@@ -26,6 +31,11 @@ export const translations = {
     ],
     alternateName: ['とき ひろかず', 'Hirokazu Toki'],
     backToHome: 'ホーム画面に戻る',
+    articlesPageTitle: '記事',
+    backToArticles: '記事一覧に戻る',
+    prev: '前',
+    next: '次',
+    contents: '目次',
   },
 } as const;
 

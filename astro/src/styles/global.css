@@ -7,16 +7,21 @@
 }
 
 :root {
+    --header-height: 3.5rem;
     color-scheme: light dark;
     --bg:          light-dark(#f9f7f3, #09090b);
+    --bg-soft:     light-dark(#d4d4d8, #27272a);
     --bg-inverse:  light-dark(#09090b, #f9f7f3);
     --bg-muted:    light-dark(#f3f4f6, #1f2937);
+    --bg-warning: light-dark(#fff5b4, #4e3f22);
     --text:        light-dark(#18181b, #fafafa);
     --text-inverse: light-dark(#fafafa, #18181b);
     --text-muted:  light-dark(#52525b, #a1a1aa);
+    --text-warning: light-dark(#4e3f22, #f9e8c3);
     --text-footer: light-dark(#a1a1aa, #52525b);
     --header-bg:   light-dark(rgba(249,247,243,0.8), rgba(9,9,11,0.8));
     --border:      light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.1));
+    --border-warning: light-dark(#4e3f22, #eebd53);
 }
 
 :root[data-theme="light"] {

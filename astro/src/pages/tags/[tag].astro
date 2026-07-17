@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/Layout.astro';
+import {formatDate} from "../../utils/date.ts";
 export async function getStaticPaths() {
   const allArticles = Object.values(
-    import.meta.glob<{ frontmatter: { title: string; tags?: string[] }; url: string }>(
+    import.meta.glob<{ frontmatter: { title: string; tags: string[]; pubDate: string; description: string; }; url: string }>(
       '../articles/*.md',
       { eager: true }
     )
@@ -25,9 +26,21 @@ const { articles } = Astro.props;
 <BaseLayout pageTitle={tag}>
     <main class="flex-1">
         <div class="max-w-5xl mx-auto px-6 sm:px-6 md:px-8 py-16 sm:py-20 md:py-32">
-            <p>Articles tagged with {tag}</p>
-            <ul>
-              {articles.map((article) => <li><a href={article.url}>{article.frontmatter.title}</a></li>)}
+            <a href="/tags">
+                <i class="fa-solid fa-angles-left me-2"></i>Back to tags</a>
+            <h1 class="text-4xl mb-5">Tag: {tag}</h1>
+            <h2 class="text-3xl">Articles</h2>
+            <ul class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+              {articles.map((article) => <li class="relative p-8 bg-(--bg-soft) hover:-translate-y-2 transition-all duration-300">
+                  <a href={article.url} class="text-2xl after:absolute after:inset-0">{article.frontmatter.title}</a>
+                  <p class="text-md mt-4">{formatDate(new Date(article.frontmatter.pubDate))}</p>
+                  <div class="tags">
+                    {article.frontmatter.tags.map((tag: string) => (
+                            <p class="me-2">#{tag}</p>
+                    ))}
+                  </div>
+                  <p class="text-md mt-4">{article.frontmatter.description}</p>
+              </li>)}
             </ul>
         </div>
     </main>
