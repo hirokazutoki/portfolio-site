@@ -1,6 +1,9 @@
 # build output
 dist/
 
+# link card OGP cache
+.cache/
+
 # generated types
 .astro/
 

@@ -116,3 +116,21 @@ const jsonLd = {
 		if (meta) meta.setAttribute("content", next === "dark" ? "#09090b" : "#f9f7f3");
 	});
 </script>
+
+<script>
+	let headerResizeObserver: ResizeObserver | null = null;
+
+	document.addEventListener("astro:page-load", () => {
+		const header = document.querySelector("header");
+		if (!header) return;
+
+		const setHeaderHeight = () => {
+			document.documentElement.style.setProperty("--header-height", `${header.offsetHeight}px`);
+		};
+
+		setHeaderHeight();
+		headerResizeObserver?.disconnect();
+		headerResizeObserver = new ResizeObserver(setHeaderHeight);
+		headerResizeObserver.observe(header);
+	});
+</script>

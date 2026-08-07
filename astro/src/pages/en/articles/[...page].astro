@@ -1,0 +1,14 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import type { GetStaticPaths } from 'astro';
+import ArticlesSection from "../../../components/articles/ArticlesSection.astro";
+import { getArticlesPage } from '../../../utils/articles';
+
+export const getStaticPaths = (async ({ paginate }) => getArticlesPage(paginate, 'en')) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<Layout>
+  <ArticlesSection page={page} />
+</Layout>

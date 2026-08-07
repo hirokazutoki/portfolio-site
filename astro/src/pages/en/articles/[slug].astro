@@ -1,0 +1,25 @@
+---
+import MarkdownArticleLayout from '../../../layouts/MarkdownArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const jaArticles = import.meta.glob('../../articles/*.md', { eager: true });
+
+  return Promise.all(Object.entries(jaArticles).map(async ([path, mod]: [string, any]) => {
+    const slug = path.split('/').pop()!.replace(/\.md$/, '');
+    const body = await mod.compiledContent();
+    return { params: { slug }, props: { frontmatter: mod.frontmatter, headings: mod.getHeadings(), body } };
+  }));
+}
+
+const { frontmatter, headings, body } = Astro.props as any;
+---
+
+<MarkdownArticleLayout frontmatter={frontmatter} headings={headings}>
+    <Fragment slot="notice">
+        <div class="p-4 rounded-xl bg-(--bg-warning) text-(--text-warning) border border-(--border-warning) my-4 flex items-start gap-2">
+            <i class="fa-solid fa-triangle-exclamation mt-1"></i>
+            <span>This content hasn't been translated to English yet. (Japanese below)</span>
+        </div>
+    </Fragment>
+    <Fragment set:html={body} />
+</MarkdownArticleLayout>
