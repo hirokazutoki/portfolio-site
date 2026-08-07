@@ -1,0 +1,63 @@
+---
+import {formatDate} from '../../utils/date';
+import type {Page} from 'astro';
+
+import { t } from '../../i18n/translations';
+const lang = Astro.currentLocale ?? 'ja';
+const tr = t(lang);
+
+interface Props {
+  page: Page<any>;
+}
+
+const {page} = Astro.props;
+---
+
+<main class="flex-1">
+    <div class="max-w-5xl mx-auto px-6 sm:px-6 md:px-8 py-16 sm:py-20 md:py-32">
+        <h1 class="text-4xl mb-5 mt-8">{tr.articlesPageTitle}</h1>
+      {page.data.length === 0 ? (
+              <p class="text-(--text-muted) text-4xl md:text-5xl font-semibold text-center py-24">No articles yet.</p>
+      ) : (
+              <>
+                  <ul class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                    {page.data.map(
+                      (article: any) =>
+                              <li class="relative p-4 bg-(--bg-soft) hover:border">
+                                  {article.frontmatter.image && (
+                                    <img src={article.frontmatter.image.url} alt={article.frontmatter.image.alt} class="w-full aspect-video object-cover rounded"/>
+                                  )}
+                                  <a href={article.url}
+                                     class="text-2xl after:absolute after:inset-0">{article.frontmatter.title}</a>
+                                  <p class="text-md mt-4">{formatDate(new Date(article.frontmatter.pubDate))}</p>
+                                  <div class="tags">
+                                    {article.frontmatter.tags.map((tag: string) => (
+                                            <p class="me-2">#{tag}</p>
+                                    ))}
+                                  </div>
+                                  <p class="text-md mt-4">{article.frontmatter.description}</p>
+                              </li>
+                    )}
+                  </ul>
+
+                  <nav class="flex items-center justify-between mt-12">
+                    {page.url.prev
+                      ? <a href={page.url.prev}
+                           class="px-5 py-2.5 rounded-xl bg-(--bg-inverse) text-(--text-inverse) text-sm font-medium no-underline hover:opacity-70 transition-opacity"><i
+                                    class="fa-solid fa-angles-left me-2"></i>{tr.prev}</a>
+                      : <span aria-disabled="true"
+                              class="px-5 py-2.5 rounded-xl bg-(--bg-inverse) text-(--text-inverse) text-sm font-medium opacity-40 cursor-not-allowed pointer-events-none"><i
+                                    class="fa-solid fa-angles-left me-2"></i>{tr.prev}</span>}
+                      <span class="text-(--text-muted) text-sm">{page.currentPage} / {page.lastPage}</span>
+                    {page.url.next
+                      ? <a href={page.url.next}
+                           class="px-5 py-2.5 rounded-xl bg-(--bg-inverse) text-(--text-inverse) text-sm font-medium no-underline hover:opacity-70 transition-opacity">{tr.next}<i
+                                    class="fa-solid fa-angles-right ms-2"></i></a>
+                      : <span aria-disabled="true"
+                              class="px-5 py-2.5 rounded-xl bg-(--bg-inverse) text-(--text-inverse) text-sm font-medium opacity-40 cursor-not-allowed pointer-events-none">{tr.next}<i
+                                    class="fa-solid fa-angles-right ms-2"></i></span>}
+                  </nav>
+              </>
+      )}
+    </div>
+</main>

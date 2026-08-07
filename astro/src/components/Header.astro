@@ -5,11 +5,14 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 const lang = Astro.currentLocale ?? 'ja';
 const otherLang = lang === 'en' ? 'ja' : 'en';
 const homeUrl = getRelativeLocaleUrl(lang, '/');
-const switchUrl = getRelativeLocaleUrl(otherLang, '/');
+const pathWithoutLocale = lang === 'en'
+	? Astro.url.pathname.replace(/^\/en/, '') || '/'
+	: Astro.url.pathname;
+const switchUrl = getRelativeLocaleUrl(otherLang, pathWithoutLocale);
 const switchLang = lang === 'en' ? '日本語' : 'English';
 ---
 
-<header style="background-color: var(--bg);" class="fixed top-0 w-full">
+<header style="background-color: var(--bg);" class="fixed top-0 w-full z-50">
 	<div class="max-w-5xl mx-auto px-6 sm:px-6 md:px-8">
 		<div class="flex items-center justify-between h-14">
 			<div class="flex items-center gap-0.5">

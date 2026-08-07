@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import { remarkLinkCard } from './src/remark/remark-link-card.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,6 +14,9 @@ export default defineConfig({
     routing: {
       prefixDefaultLocale: false
     }
+  },
+  markdown: {
+    remarkPlugins: [remarkLinkCard]
   },
   vite: {
     plugins: [tailwindcss()]

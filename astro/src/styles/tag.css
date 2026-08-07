@@ -1,0 +1,21 @@
+.tag a {
+    color: var(--text-muted);
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+    margin: 0.25em;
+    border: solid 1px var(--border);
+    border-radius: .5em;
+    padding: .25em .5em;
+    background-color: var(--bg-muted);
+}
+
+.tag::before {
+    content: "# ";
+    color: var(--text-muted);
+}
