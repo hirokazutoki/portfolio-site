@@ -1,46 +1,41 @@
-# Astro Starter Kit: Basics
+# Portfolio site
 
-```sh
-yarn create astro@latest -- --template basics
+## How to start
+
+```bash
+yarn install
+yarn dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## pinact
 
-## 🚀 Project Structure
+GitHub Actions のワークフローファイルで、`uses:` に書かれたタグ(例: `@v7.0.0`)を、対応するコミットのフルダイジェスト(SHA)に自動で書き換えてくれるツール。サプライチェーン攻撃対策として Actions をコミットSHAで固定(pin)するのがベストプラクティスとされているが、それを手作業でやらずに済む。
 
-Inside of your Astro project, you'll see the following folders and files:
+- リポジトリ: [suzuki-shunsuke/pinact](https://github.com/suzuki-shunsuke/pinact)
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+### インストール
+
+```bash
+brew install suzuki-shunsuke/pinact/pinact
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+### 使い方
 
-## 🧞 Commands
+リポジトリルートで実行すると、`.github/workflows/` 以下のワークフローファイルがまとめて書き換わる。
 
-All commands are run from the root of the project, from a terminal:
+```bash
+pinact run
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `yarn install`             | Installs dependencies                            |
-| `yarn dev`             | Starts local dev server at `localhost:4321`      |
-| `yarn build`           | Build your production site to `./dist/`          |
-| `yarn preview`         | Preview your build locally, before deploying     |
-| `yarn astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `yarn astro -- --help` | Get help using the Astro CLI                     |
+#### 変換前
 
-## 👀 Want to learn more?
+```yaml
+uses: actions/checkout@v7.0.0
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+#### 変換後
+
+```yaml
+uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+```
+
